@@ -1,0 +1,41 @@
+﻿@model StudyProject.Controllers.Form.RegisterForm
+
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+
+    <h2>ユーザ登録画面</h2>
+    <hr>
+    <table style="text-align:left;">
+        <tr>
+            <td>ユーザID</td>
+            <td>：@Html.TextBox("UserId")</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ユーザ名</td>
+            <td>：@Html.TextBox("UserName")</td>
+        </tr>
+        <tr>
+            <td>性別</td>
+            <td>：@Html.TextBox("UserGender")</td>
+        </tr>
+        <tr>
+            <td>パスワード</td>
+            <td>：@Html.Password("Password")</td>
+        </tr>
+        <tr>
+            <td>確認用パスワード</td>
+            <td>：@Html.Password("ConfirmPassword")</td>
+        </tr>
+    </table>
+    <br />
+    <input type="submit" value="登録" />
+}
+
+
+

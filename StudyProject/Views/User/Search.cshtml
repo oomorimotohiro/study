@@ -1,0 +1,62 @@
+﻿@model StudyProject.Controllers.Form.SearchForm
+
+@{
+    ViewBag.Title = "Search";
+}
+
+@using (Html.BeginForm())
+{
+    <h2>ユーザ検索画面</h2>
+    <hr>
+
+    <table style="text-align:left;">
+        <tr>
+            <td>ユーザID</td>
+            <td>：@Html.TextBox("UserId")</td>
+        </tr>
+        <tr>
+            <td>ユーザ名</td>
+            <td>：@Html.TextBox("UserName")</td>
+        </tr>
+        <tr>
+            <td>性別</td>
+            <td>：@Html.TextBox("UserGender")</td>
+        </tr>
+    </table>
+    <br />
+    <input type="submit" value="検索" />
+    <br />
+    <hr>
+    if (Model.UserDtoList != null)
+    {
+        <table style="border:solid">
+            <thead>
+                <tr style="background-color:lightskyblue">
+                    <th style="border:solid; min-width:80px; text-align:center;">ユーザID</th>
+                    <th style="border:solid; min-width:80px; text-align:center;">ユーザ名</th>
+                    <th style="border:solid; min-width:40px; text-align:center;">性別</th>
+                    <th style="border:solid; min-width:80px; text-align:center;">登録日</th>
+                    <th style="border:solid; min-width:80px; text-align:center;">最終更新日</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.UserDtoList)
+                    {
+                        <tr style="border:solid;">
+                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.UserId)</td>
+                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.UserName)</td>
+                            <td style="border:solid; text-align:center;">@Html.DisplayFor(modelItem => item.UserGender)</td>
+                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.RegisterDate)</td>
+                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.UpdateDate)</td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    }
+}
+
+
+
+
+
+
