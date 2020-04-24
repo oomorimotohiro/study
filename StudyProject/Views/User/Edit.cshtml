@@ -1,7 +1,35 @@
-﻿
+﻿@model StudyProject.Controllers.Form.EditForm
+
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>ユーザ編集</h2>
+@using (Html.BeginForm())
+{
+    <h2>ユーザ情報編集</h2>
+
+    <hr>
+    <table style="text-align:left;">
+        <tr>
+            <td>ユーザID</td>
+            <td>：@Html.TextBox("UserId")</td>
+            <td style="font-size:15px; color:red">※</td>
+            <td>@Html.ValidationMessageFor(model => model.UserId)</td>
+        </tr>
+        <tr>
+            <td>ユーザ名</td>
+            <td>：@Html.TextBox("UserName")</td>
+            <td style="font-size:15px; color:red">※</td>
+            <td>@Html.ValidationMessageFor(model => model.UserName)</td>
+        </tr>
+        <tr>
+            <td>性別</td>
+            <td>：@Html.TextBox("UserGender")</td>
+        </tr>
+    </table>
+    <br />
+
+    <input type="submit" value="更新" />
+}
+
 

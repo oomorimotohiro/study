@@ -36,8 +36,33 @@ namespace StudyProject.Controllers.Home
             return View(SearchForm);
         }
 
-        // GET: Edit
-        public ActionResult Edit(string UserId)
+        // POST: Edit
+        [HttpPost]
+        public ActionResult Edit(string EditUserId, SearchForm SearchForm)
+        {
+            UserSearchService service = new UserSearchService();
+            UserDto UserInfoDto = service.SearchUserWithPrimaryKeyUserId(EditUserId);
+
+            if (UserInfoDto == null)
+            {
+                // 編集対象のユーザ情報がない場合
+                return View("Search", SearchForm);
+            }
+
+            EditForm EditForm = new EditForm();
+            EditForm.UserId = UserInfoDto.UserId;
+            EditForm.UserName = UserInfoDto.UserName;
+            EditForm.UserGender = UserInfoDto.UserGender;
+
+            return View(EditForm);
+        }
+
+        public ActionResult Update(EditForm EditForm)
+        {
+            return View(EditForm);
+        }
+
+        public ActionResult Delete(string UserId)
         {
             return View();
         }
@@ -58,7 +83,6 @@ namespace StudyProject.Controllers.Home
           　    // 入力チェックエラー
                 return View(RegisterForm);
             } 
-
             // 登録実施
             UserRegisterService service = new UserRegisterService();
             service.RegisterUser(RegisterForm);

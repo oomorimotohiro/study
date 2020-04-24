@@ -9,6 +9,8 @@
     <h2>ユーザ検索画面</h2>
     <hr>
 
+    Html.ValidationMessage("NotExistTargetEditUserInfo");
+
     <table style="text-align:left;">
         <tr>
             <td>ユーザID</td>
@@ -26,6 +28,11 @@
     <br />
     <input type="submit" value="検索" />
     <br />
+
+}
+
+@if (Model.UserDtoList != null)
+{
     <hr>
     if (Model.UserDtoList != null)
     {
@@ -37,29 +44,38 @@
                     <th style="border:solid; min-width:40px; text-align:center;">性別</th>
                     <th style="border:solid; min-width:80px; text-align:center;">登録日</th>
                     <th style="border:solid; min-width:80px; text-align:center;">最終更新日</th>
-                    <th style="border:solid; min-width:80px; text-align:center;">データ操作</th>
+                    <th colspan="2" style="border:solid; min-width:80px; text-align:center;">データ操作</th>
                 </tr>
             </thead>
             <tbody>
-                    @foreach (var item in Model.UserDtoList)
-                    {
-                        <tr style="border:solid;">
-                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.UserId)</td>
-                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.UserName)</td>
-                            <td style="border:solid; text-align:center;">@Html.DisplayFor(modelItem => item.UserGender)</td>
-                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.RegisterDate)</td>
-                            <td style="border:solid;">@Html.DisplayFor(modelItem => item.UpdateDate)</td>
-                            <td>
-                                <a href="/User/Edit/@item.UserId">編集</a>|
-                                <a href="/User/Delete/@item.UserId">削除</a>
-                            </td>
-                        </tr>
-                    }
+                @foreach (var item in Model.UserDtoList)
+                {
+                    <tr style="border:solid;">
+                        <td style="border:solid;">@Html.DisplayFor(modelItem => item.UserId)</td>
+                        <td style="border:solid;">@Html.DisplayFor(modelItem => item.UserName)</td>
+                        <td style="border:solid; text-align:center;">@Html.DisplayFor(modelItem => item.UserGender)</td>
+                        <td style="border:solid;">@Html.DisplayFor(modelItem => item.RegisterDate)</td>
+                        <td style="border:solid;">@Html.DisplayFor(modelItem => item.UpdateDate)</td>
+                        <td>
+                            @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+                            {
+                                <input type="hidden" name="EditUserId" value="@item.UserId" />
+                                <input type="submit" value="編集" />
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Delete", "User", FormMethod.Post))
+                            {
+                                <input type="hidden" name="DeleteUserId" value="@item.UserId" />
+                                <input type="submit" value="削除" />
+                            }
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     }
 }
-
 
 
 
