@@ -10,7 +10,7 @@ using System.Web;
 
 namespace StudyProject.Models.Service.Impl
 {
-    public class UserSearchServiceImpl : UserSearchService
+    public class UserSearchService : IUserSearchService
     {
         public List<UserDto> SearchUser(SearchForm searchForm)
         {
@@ -53,6 +53,7 @@ namespace StudyProject.Models.Service.Impl
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
+                throw;
             } 
             finally
             {
@@ -64,9 +65,55 @@ namespace StudyProject.Models.Service.Impl
             return searchResultList;
         }
 
+        public UserDto SearchUserWithPrimaryKeyUserId(string UserId)
+        {
+            UserDto SearchResultUserDto = null;
+            OracleConnection connection = null;
+
+            try
+            {
+                // 接続文字列の取得(Web.configから取得)
+                string connectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
+                // DB接続の準備
+                connection = new OracleConnection(connectionString);
+                // DB接続開始
+                connection.Open();
+
+                // SQL生成
+                string SelectSql = "SELECT USER_ID FROM USER_MNG_TBL WHERE USER_ID = '" + UserId + "'";
+                // 実行するSQLの準備
+                OracleCommand Command = new OracleCommand(SelectSql, connection);
+
+                // SQL実行
+                Command.ExecuteNonQuery();
+
+                // 検索結果の取得
+                OracleDataReader DataReader = Command.ExecuteReader();
+                if (DataReader.Read() == true)
+                {
+                    SearchResultUserDto = new UserDto()
+                    {
+                        UserId = UserId = DataReader["USER_ID"] as string
+                    };
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+            finally
+            {
+                // DB接続終了
+                connection.Close();
+                connection.Dispose();
+            }
+            return SearchResultUserDto;
+        }
+
         private string CreateSelectSql(SearchForm SearchForm)
         {
-            String BaseSelectSql = "SELECT * FROM USER_MNG_TBL ";
+            string BaseSelectSql = "SELECT * FROM USER_MNG_TBL ";
 
             // 各検索条件の取得
             string UserId = SearchForm.UserId;

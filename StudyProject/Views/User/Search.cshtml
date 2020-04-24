@@ -37,6 +37,7 @@
                     <th style="border:solid; min-width:40px; text-align:center;">性別</th>
                     <th style="border:solid; min-width:80px; text-align:center;">登録日</th>
                     <th style="border:solid; min-width:80px; text-align:center;">最終更新日</th>
+                    <th style="border:solid; min-width:80px; text-align:center;">データ操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,11 @@
                             <td style="border:solid; text-align:center;">@Html.DisplayFor(modelItem => item.UserGender)</td>
                             <td style="border:solid;">@Html.DisplayFor(modelItem => item.RegisterDate)</td>
                             <td style="border:solid;">@Html.DisplayFor(modelItem => item.UpdateDate)</td>
+                            <td>
+                                <a href="/User/Details/@item.UserId">詳細</a>|
+                                <a href="/User/Edit/@item.UserId">編集</a>|
+                                <a href="/User/Delete/@item.UserId">削除</a>
+                            </td>
                         </tr>
                     }
             </tbody>

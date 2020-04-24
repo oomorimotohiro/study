@@ -120,10 +120,10 @@
     </Compile>
     <Compile Include="Models\Dto\UserDto.cs" />
     <Compile Include="Models\Sample\Test.cs" />
-    <Compile Include="Models\Service\Impl\UserRegisterServiceImpl.cs" />
-    <Compile Include="Models\Service\Impl\UserSearchServiceImpl.cs" />
-    <Compile Include="Models\Service\UserRegisterService.cs" />
-    <Compile Include="Models\Service\UserSearchService.cs" />
+    <Compile Include="Models\Service\Impl\UserRegisterService.cs" />
+    <Compile Include="Models\Service\Impl\UserSearchService.cs" />
+    <Compile Include="Models\Service\IUserRegisterService.cs" />
+    <Compile Include="Models\Service\IUserSearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

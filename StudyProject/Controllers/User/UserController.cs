@@ -31,7 +31,7 @@ namespace StudyProject.Controllers.Home
         public ActionResult Search(SearchForm SearchForm)
         {
             // 検索実施
-            UserSearchServiceImpl service = new UserSearchServiceImpl();
+            UserSearchService service = new UserSearchService();
             SearchForm.UserDtoList = service.SearchUser(SearchForm);
             return View(SearchForm);
         }
@@ -47,8 +47,15 @@ namespace StudyProject.Controllers.Home
         [HttpPost]
         public ActionResult Register(RegisterForm RegisterForm)
         {
-            
+            if (!ModelState.IsValid)
+            {
+          　    // 入力チェックエラー
+                return View(RegisterForm);
+            } 
 
+            // 登録実施
+            UserRegisterService service = new UserRegisterService();
+            service.RegisterUser(RegisterForm);
             return View(RegisterForm);
         }
     }

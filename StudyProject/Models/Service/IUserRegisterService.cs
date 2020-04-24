@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudyProject.Models.Service
 {
-    interface UserRegisterService
+    interface IUserRegisterService
     {
         void RegisterUser(RegisterForm RegisterForm);
     }
