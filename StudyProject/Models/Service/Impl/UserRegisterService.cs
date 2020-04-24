@@ -37,9 +37,20 @@ namespace StudyProject.Models.Service.Impl
                 connection.Open();
 
                 // SQL生成
-                string RegisterSql = "INSERT ";
+                string RegisterSql = "INSERT INTO USER_MNG.USER_MNG_TBL(USER_ID, PASSWORD, USER_NAME, USER_GENDER, REGISTER_PROG_ID, REGISTER_USER_ID, REGISTER_DATE, UPDATE_PROG_ID, UPDATE_USER_ID, UPDATE_DATE) "
+                                   + "VALUES (:USER_ID, :PASSWORD, :USER_NAME, :USER_GENDER, :REGISTER_PROG_ID, :REGISTER_USER_ID, :REGISTER_DATE, :UPDATE_PROG_ID, :UPDATE_USER_ID, :UPDATE_DATE)";
                 // 実行するSQLの準備
                 OracleCommand Command = new OracleCommand(RegisterSql, connection);
+                Command.Parameters.Add(new OracleParameter(":USER_ID", RegisterForm.UserId));
+                Command.Parameters.Add(new OracleParameter(":PASSWORD", RegisterForm.Password));
+                Command.Parameters.Add(new OracleParameter(":USER_NAME", RegisterForm.UserName));
+                Command.Parameters.Add(new OracleParameter(":USER_GENDER", RegisterForm.UserGender));
+                Command.Parameters.Add(new OracleParameter(":REGISTER_PROG_ID", "REGISTER"));
+                Command.Parameters.Add(new OracleParameter(":REGISTER_USER_ID", RegisterForm.UserId));
+                Command.Parameters.Add(new OracleParameter(":REGISTER_DATE", DateTime.Now));
+                Command.Parameters.Add(new OracleParameter(":UPDATE_PROG_ID", "REGISTER"));
+                Command.Parameters.Add(new OracleParameter(":UPDATE_USER_ID", RegisterForm.UserId));
+                Command.Parameters.Add(new OracleParameter(":UPDATE_DATE", DateTime.Now));
 
                 // SQL実行
                 Command.ExecuteNonQuery();
@@ -55,8 +66,6 @@ namespace StudyProject.Models.Service.Impl
                 connection.Close();
                 connection.Dispose();
             }
-
-
         }
     }
 }

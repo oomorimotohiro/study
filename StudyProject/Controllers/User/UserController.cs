@@ -36,6 +36,12 @@ namespace StudyProject.Controllers.Home
             return View(SearchForm);
         }
 
+        // GET: Edit
+        public ActionResult Edit(string UserId)
+        {
+            return View();
+        }
+
         // GET: Register
         public ActionResult Register()
         {

@@ -12,6 +12,10 @@ namespace StudyProject.Models.Service.Impl
 {
     public class UserSearchService : IUserSearchService
     {
+        private static readonly string BASE_SELECT_SQL = "SELECT * FROM USER_MNG_TBL ";
+        private static readonly string SQL_WHERE = "WHERE ";
+        private static readonly string SQL_AND = "AND ";
+
         public List<UserDto> SearchUser(SearchForm searchForm)
         {
             List<UserDto> searchResultList = new List<UserDto>();
@@ -29,7 +33,7 @@ namespace StudyProject.Models.Service.Impl
                 string SelectSql = CreateSelectSql(searchForm);
                 // 実行するSQLの準備
                 OracleCommand Command = new OracleCommand(SelectSql, connection);
-
+                
                 // SQL実行
                 Command.ExecuteNonQuery();
 
@@ -80,7 +84,7 @@ namespace StudyProject.Models.Service.Impl
                 connection.Open();
 
                 // SQL生成
-                string SelectSql = "SELECT USER_ID FROM USER_MNG_TBL WHERE USER_ID = '" + UserId + "'";
+                string SelectSql = "SELECT * FROM USER_MNG_TBL WHERE USER_ID = '" + UserId + "'";
                 // 実行するSQLの準備
                 OracleCommand Command = new OracleCommand(SelectSql, connection);
 
@@ -93,7 +97,12 @@ namespace StudyProject.Models.Service.Impl
                 {
                     SearchResultUserDto = new UserDto()
                     {
-                        UserId = UserId = DataReader["USER_ID"] as string
+                        UserId = DataReader["USER_ID"] as string,
+                        Password = DataReader["PASSWORD"] as string,
+                        UserName = DataReader["USER_NAME"] as string,
+                        UserGender = DataReader["USER_GENDER"] as string,
+                        RegisterDate = DataReader["REGISTER_DATE"] as string,
+                        UpdateDate = DataReader["UPDATE_DATE"] as string
                     };
                 }
             }
