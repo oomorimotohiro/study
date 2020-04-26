@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Form\EditForm.cs" />
     <Compile Include="Controllers\Form\RegisterForm.cs" />
     <Compile Include="Controllers\Form\SearchForm.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
@@ -122,8 +123,10 @@
     <Compile Include="Models\Sample\Test.cs" />
     <Compile Include="Models\Service\Impl\UserRegisterService.cs" />
     <Compile Include="Models\Service\Impl\UserSearchService.cs" />
+    <Compile Include="Models\Service\Impl\UserUpdateService.cs" />
     <Compile Include="Models\Service\IUserRegisterService.cs" />
     <Compile Include="Models\Service\IUserSearchService.cs" />
+    <Compile Include="Models\Service\IUserUpdateService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +145,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\User\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

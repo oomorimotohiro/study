@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace StudyProject.Models.Service
 {
-    interface IUserRegisterService
+    interface IUserUpdateService
     {
         /// <summary>
-        /// ユーザ情報登録
+        /// ユーザ情報の更新を実施
         /// </summary>
-        /// <param name="RegisterForm"></param>
-        void RegisterUser(RegisterForm RegisterForm);
+        /// <param name="EditForm"></param>
+        void UpdateUserWithPrimaryKey(EditForm EditForm);
     }
 }

@@ -23,7 +23,7 @@ namespace StudyProject.Controllers.Home
         public ActionResult Search()
         {
             SearchForm SearchForm = new SearchForm();
-            return View(SearchForm);
+            return View("Search", SearchForm);
         }
 
         // POST: Search
@@ -33,19 +33,19 @@ namespace StudyProject.Controllers.Home
             // 検索実施
             UserSearchService service = new UserSearchService();
             SearchForm.UserDtoList = service.SearchUser(SearchForm);
-            return View(SearchForm);
+            return View("Search", SearchForm);
         }
 
         // POST: Edit
+        [ActionName("Edit")]
         [HttpPost]
         public ActionResult Edit(string EditUserId, SearchForm SearchForm)
         {
             UserSearchService service = new UserSearchService();
             UserDto UserInfoDto = service.SearchUserWithPrimaryKeyUserId(EditUserId);
-
             if (UserInfoDto == null)
             {
-                // 編集対象のユーザ情報がない場合
+                // 編集対象のユーザ情報がない場合、検索画面を再表示
                 return View("Search", SearchForm);
             }
 
@@ -57,13 +57,33 @@ namespace StudyProject.Controllers.Home
             return View(EditForm);
         }
 
+        // POST: UPDATE
+        [ActionName("UPDATE")]
+        [HttpPost]
         public ActionResult Update(EditForm EditForm)
         {
+            if (!ModelState.IsValid)
+            {
+                // 入力チェックエラー
+                return View("Edit", EditForm);
+            }
+
             return View(EditForm);
         }
 
-        public ActionResult Delete(string UserId)
+        // POST: DELETE
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult Delete(string DeleteUserId, SearchForm SearchForm)
         {
+            UserSearchService service = new UserSearchService();
+            UserDto UserInfoDto = service.SearchUserWithPrimaryKeyUserId(DeleteUserId);
+            if (UserInfoDto == null)
+            {
+                // 削除対象のユーザ情報がない場合、検索画面を再表示
+                return View("Search", SearchForm);
+            }
+
             return View();
         }
 

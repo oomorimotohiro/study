@@ -4,7 +4,7 @@
     ViewBag.Title = "Search";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Search", "User", FormMethod.Post))
 {
     <h2>ユーザ検索画面</h2>
     <hr>
