@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.WebSockets;
 
 namespace StudyProject.Controllers.Home
 {
@@ -68,7 +69,10 @@ namespace StudyProject.Controllers.Home
                 return View("Edit", EditForm);
             }
 
-            return View(EditForm);
+            UserUpdateService service = new UserUpdateService();
+            service.UpdateUserWithPrimaryKey(EditForm);
+
+            return View("Edit", EditForm);
         }
 
         // POST: DELETE
@@ -76,13 +80,16 @@ namespace StudyProject.Controllers.Home
         [HttpPost]
         public ActionResult Delete(string DeleteUserId, SearchForm SearchForm)
         {
-            UserSearchService service = new UserSearchService();
-            UserDto UserInfoDto = service.SearchUserWithPrimaryKeyUserId(DeleteUserId);
+            UserSearchService SearchService = new UserSearchService();
+            UserDto UserInfoDto = SearchService.SearchUserWithPrimaryKeyUserId(DeleteUserId);
             if (UserInfoDto == null)
             {
                 // 削除対象のユーザ情報がない場合、検索画面を再表示
                 return View("Search", SearchForm);
             }
+
+            UserDeleteService DeleteService = new UserDeleteService();
+            DeleteService.DeleteUserWithPrimaryKeyUserId(DeleteUserId);
 
             return View();
         }

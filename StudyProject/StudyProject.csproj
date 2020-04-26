@@ -121,9 +121,11 @@
     </Compile>
     <Compile Include="Models\Dto\UserDto.cs" />
     <Compile Include="Models\Sample\Test.cs" />
+    <Compile Include="Models\Service\Impl\UserDeleteService.cs" />
     <Compile Include="Models\Service\Impl\UserRegisterService.cs" />
     <Compile Include="Models\Service\Impl\UserSearchService.cs" />
     <Compile Include="Models\Service\Impl\UserUpdateService.cs" />
+    <Compile Include="Models\Service\IUserDeleteService.cs" />
     <Compile Include="Models\Service\IUserRegisterService.cs" />
     <Compile Include="Models\Service\IUserSearchService.cs" />
     <Compile Include="Models\Service\IUserUpdateService.cs" />
@@ -146,6 +148,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

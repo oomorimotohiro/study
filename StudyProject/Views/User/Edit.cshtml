@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Update", "User"))
 {
     <h2>ユーザ情報編集</h2>
 
@@ -13,8 +13,6 @@
         <tr>
             <td>ユーザID</td>
             <td>：@Html.TextBox("UserId")</td>
-            <td style="font-size:15px; color:red">※</td>
-            <td>@Html.ValidationMessageFor(model => model.UserId)</td>
         </tr>
         <tr>
             <td>ユーザ名</td>
