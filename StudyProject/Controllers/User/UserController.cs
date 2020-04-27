@@ -76,7 +76,6 @@ namespace StudyProject.Controllers.Home
         }
 
         // POST: DELETE
-        [ActionName("Delete")]
         [HttpPost]
         public ActionResult Delete(string DeleteUserId, SearchForm SearchForm)
         {

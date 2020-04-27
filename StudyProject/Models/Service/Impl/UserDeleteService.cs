@@ -12,25 +12,29 @@ namespace StudyProject.Models.Service.Impl
     {
         public void DeleteUserWithPrimaryKeyUserId(string DelteUserId)
         {
-            OracleConnection connection = null;
+            OracleConnection Connection = null;
             try
             {
                 // 接続文字列の取得(Web.configから取得)
-                string connectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
+                string ConnectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
                 // DB接続の準備
-                connection = new OracleConnection(connectionString);
+                Connection = new OracleConnection(ConnectionString);
                 // DB接続開始
-                connection.Open();
+                Connection.Open();
+                // トランザクション開始
+                OracleTransaction Transaction = Connection.BeginTransaction();
 
                 // SQL生成
                 string DeleteSql = "DELETE FROM USER_MNG.USER_MNG_TBL WHERE USER_ID = :USER_ID";
-
                 // 実行するSQLの準備
-                OracleCommand Command = new OracleCommand(DeleteSql, connection);
+                OracleCommand Command = new OracleCommand(DeleteSql, Connection);
                 // パラメータ値の設定
                 Command.Parameters.Add(new OracleParameter(":USER_ID", DelteUserId));
+
                 // SQL実行
                 Command.ExecuteNonQuery();
+
+                Transaction.Commit();
             }
             catch (SqlException e)
             {
@@ -40,8 +44,8 @@ namespace StudyProject.Models.Service.Impl
             finally
             {
                 // DB接続終了
-                connection.Close();
-                connection.Dispose();
+                Connection.Close();
+                Connection.Dispose();
             }
         }
     }

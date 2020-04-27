@@ -12,7 +12,7 @@
     <table style="text-align:left;">
         <tr>
             <td>ユーザID</td>
-            <td>：@Html.TextBox("UserId")</td>
+            <td>：@Html.TextBox("UserId", Model.UserId, new {ReadOnly = true})</td>
         </tr>
         <tr>
             <td>ユーザ名</td>

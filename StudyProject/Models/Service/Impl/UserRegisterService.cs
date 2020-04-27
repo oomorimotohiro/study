@@ -17,8 +17,8 @@ namespace StudyProject.Models.Service.Impl
         public void RegisterUser(RegisterForm RegisterForm)
         {
             // 既に登録済みのデータか確認
-            UserSearchService SeatchService = new UserSearchService();
-            UserDto UserInfoDto = SeatchService.SearchUserWithPrimaryKeyUserId(RegisterForm.UserId);
+            UserSearchService SearchService = new UserSearchService();
+            UserDto UserInfoDto = SearchService.SearchUserWithPrimaryKeyUserId(RegisterForm.UserId);
 
             if (UserInfoDto != null)
             {
@@ -26,21 +26,21 @@ namespace StudyProject.Models.Service.Impl
                 return;
             }
 
-            OracleConnection connection = null;
+            OracleConnection Connection = null;
             try
             {                
                 // 接続文字列の取得(Web.configから取得)
-                string connectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
+                string ConnectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
                 // DB接続の準備
-                connection = new OracleConnection(connectionString);
+                Connection = new OracleConnection(ConnectionString);
                 // DB接続開始
-                connection.Open();
+                Connection.Open();
 
                 // SQL生成
                 string RegisterSql = "INSERT INTO USER_MNG.USER_MNG_TBL(USER_ID, PASSWORD, USER_NAME, USER_GENDER, REGISTER_PROG_ID, REGISTER_USER_ID, REGISTER_DATE, UPDATE_PROG_ID, UPDATE_USER_ID, UPDATE_DATE) "
                                    + "VALUES (:USER_ID, :PASSWORD, :USER_NAME, :USER_GENDER, :REGISTER_PROG_ID, :REGISTER_USER_ID, :REGISTER_DATE, :UPDATE_PROG_ID, :UPDATE_USER_ID, :UPDATE_DATE)";
                 // 実行するSQLの準備
-                OracleCommand Command = new OracleCommand(RegisterSql, connection);
+                OracleCommand Command = new OracleCommand(RegisterSql, Connection);
                 Command.Parameters.Add(new OracleParameter(":USER_ID", RegisterForm.UserId));
                 Command.Parameters.Add(new OracleParameter(":PASSWORD", RegisterForm.Password));
                 Command.Parameters.Add(new OracleParameter(":USER_NAME", RegisterForm.UserName));
@@ -63,8 +63,8 @@ namespace StudyProject.Models.Service.Impl
             finally
             {
                 // DB接続終了
-                connection.Close();
-                connection.Dispose();
+                Connection.Close();
+                Connection.Dispose();
             }
         }
     }
