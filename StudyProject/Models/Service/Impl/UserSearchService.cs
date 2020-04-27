@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using Microsoft.SqlServer.Server;
+using Oracle.ManagedDataAccess.Client;
 using StudyProject.Controllers.Form;
 using StudyProject.Models.Dto;
 using System;
@@ -16,23 +17,30 @@ namespace StudyProject.Models.Service.Impl
         private static readonly string SQL_WHERE = "WHERE ";
         private static readonly string SQL_AND = "AND ";
 
-        public List<UserDto> SearchUser(SearchForm searchForm)
+        private static readonly string USER_MNG_TBL_COLUMN_USER_ID = "USER_ID";
+        private static readonly string USER_MNG_TBL_COLUMN_PASSWORD = "PASSWORD";
+        private static readonly string USER_MNG_TBL_COLUMN_USER_NAME = "USER_NAME";
+        private static readonly string USER_MNG_TBL_COLUMN_USER_GENDER = "USER_GENDER";
+        private static readonly string USER_MNG_TBL_COLUMN_REGISTER_DATE = "REGISTER_DATE";
+        private static readonly string USER_MNG_TBL_COLUMN_UPDATE_DATE = "UPDATE_DATE";
+
+        public List<UserDto> SearchUser(SearchForm SearchForm)
         {
-            List<UserDto> searchResultList = new List<UserDto>();
-            OracleConnection connection = null;
+            List<UserDto> SearchResultList = new List<UserDto>();
+            OracleConnection Connection = null;
             try
             {
                 // 接続文字列の取得(Web.configから取得)
-                string connectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
+                string ConnectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
                 // DB接続の準備
-                connection = new OracleConnection(connectionString);
+                Connection = new OracleConnection(ConnectionString);
                 // DB接続開始
-                connection.Open();
+                Connection.Open();
 
                 // SQL生成
-                string SelectSql = CreateSelectSql(searchForm);
+                string SelectSql = CreateSelectSql(SearchForm);
                 // 実行するSQLの準備
-                OracleCommand Command = new OracleCommand(SelectSql, connection);
+                OracleCommand Command = new OracleCommand(SelectSql, Connection);
                 
                 // SQL実行
                 Command.ExecuteNonQuery();
@@ -42,15 +50,15 @@ namespace StudyProject.Models.Service.Impl
                 // 検索結果をリストに格納
                 while (DataReader.Read() == true)
                 {
-                    searchResultList.Add(
+                    SearchResultList.Add(
                         new UserDto()
                         {
-                            UserId = DataReader["USER_ID"] as string,
-                            Password = DataReader["PASSWORD"] as string,
-                            UserName = DataReader["USER_NAME"] as string,
-                            UserGender = DataReader["USER_GENDER"] as string,
-                            RegisterDate = DataReader["REGISTER_DATE"] as string,
-                            UpdateDate = DataReader["UPDATE_DATE"] as string
+                            UserId = DataReader[USER_MNG_TBL_COLUMN_USER_ID] as string,
+                            Password = DataReader[USER_MNG_TBL_COLUMN_PASSWORD] as string,
+                            UserName = DataReader[USER_MNG_TBL_COLUMN_USER_NAME] as string,
+                            UserGender = DataReader[USER_MNG_TBL_COLUMN_USER_GENDER] as string,
+                            RegisterDate = DataReader[USER_MNG_TBL_COLUMN_REGISTER_DATE] as string,
+                            UpdateDate = DataReader[USER_MNG_TBL_COLUMN_UPDATE_DATE] as string
                         });
                 }
             } 
@@ -62,31 +70,32 @@ namespace StudyProject.Models.Service.Impl
             finally
             {
                 // DB接続終了
-                connection.Close();
-                connection.Dispose();
+                Connection.Close();
+                Connection.Dispose();
             }
 
-            return searchResultList;
+            return SearchResultList;
         }
 
         public UserDto SearchUserWithPrimaryKeyUserId(string UserId)
         {
             UserDto SearchResultUserDto = null;
-            OracleConnection connection = null;
+            OracleConnection Connection = null;
 
             try
             {
                 // 接続文字列の取得(Web.configから取得)
-                string connectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
+                string ConnectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
                 // DB接続の準備
-                connection = new OracleConnection(connectionString);
+                Connection = new OracleConnection(ConnectionString);
                 // DB接続開始
-                connection.Open();
+                Connection.Open();
 
                 // SQL生成
-                string SelectSql = "SELECT * FROM USER_MNG_TBL WHERE USER_ID = '" + UserId + "'";
+                string SelectSql = "SELECT * FROM USER_MNG_TBL WHERE USER_ID = :USER_ID";
                 // 実行するSQLの準備
-                OracleCommand Command = new OracleCommand(SelectSql, connection);
+                OracleCommand Command = new OracleCommand(SelectSql, Connection);
+                Command.Parameters.Add(new OracleParameter(":USER_ID", UserId));
 
                 // SQL実行
                 Command.ExecuteNonQuery();
@@ -97,12 +106,12 @@ namespace StudyProject.Models.Service.Impl
                 {
                     SearchResultUserDto = new UserDto()
                     {
-                        UserId = DataReader["USER_ID"] as string,
-                        Password = DataReader["PASSWORD"] as string,
-                        UserName = DataReader["USER_NAME"] as string,
-                        UserGender = DataReader["USER_GENDER"] as string,
-                        RegisterDate = DataReader["REGISTER_DATE"] as string,
-                        UpdateDate = DataReader["UPDATE_DATE"] as string
+                        UserId = DataReader[USER_MNG_TBL_COLUMN_USER_ID] as string,
+                        Password = DataReader[USER_MNG_TBL_COLUMN_PASSWORD] as string,
+                        UserName = DataReader[USER_MNG_TBL_COLUMN_USER_NAME] as string,
+                        UserGender = DataReader[USER_MNG_TBL_COLUMN_USER_GENDER] as string,
+                        RegisterDate = DataReader[USER_MNG_TBL_COLUMN_REGISTER_DATE] as string,
+                        UpdateDate = DataReader[USER_MNG_TBL_COLUMN_UPDATE_DATE] as string
                     };
                 }
             }
@@ -114,35 +123,85 @@ namespace StudyProject.Models.Service.Impl
             finally
             {
                 // DB接続終了
-                connection.Close();
-                connection.Dispose();
+                Connection.Close();
+                Connection.Dispose();
             }
             return SearchResultUserDto;
         }
 
+        /// <summary>
+        /// 検索画面の入力値に応じてSQL文を作成する。
+        /// </summary>
+        /// <param name="SearchForm">検索Form</param>
+        /// <returns>作成後のSQL文</returns>
         private string CreateSelectSql(SearchForm SearchForm)
         {
-            string BaseSelectSql = "SELECT * FROM USER_MNG_TBL ";
-
             // 各検索条件の取得
-            string UserId = SearchForm.UserId;
-            string UserName = SearchForm.UserName;
-            string UserGender = SearchForm.UserGender;
-
-            bool isAddCondition = false;
-
-            if (!string.IsNullOrEmpty(UserId))
+            Dictionary<string, string> InputParametor = new Dictionary<string, string>
             {
-                // 検索条件.ユーザIDが入力されている場合
+                { USER_MNG_TBL_COLUMN_USER_ID, SearchForm.UserId },
+                { USER_MNG_TBL_COLUMN_USER_NAME, SearchForm.UserName },
+                { USER_MNG_TBL_COLUMN_USER_GENDER, SearchForm.UserGender }
+            };
 
-                isAddCondition = true;
+            if (IsNullAllInputValue(InputParametor))
+            {
+                // 全ての入力値がNULLの場合、全件検索
+                return BASE_SELECT_SQL;
             }
 
-            if (isAddCondition)
-            { 
+            string CreateSelectSql = BASE_SELECT_SQL + SQL_WHERE;
+
+            bool IsAddConditonFlag = false;
+
+            if (!string.IsNullOrEmpty(InputParametor[USER_MNG_TBL_COLUMN_USER_ID]))
+            {
+                CreateSelectSql += "USER_ID LIKE '%' || " + InputParametor[USER_MNG_TBL_COLUMN_USER_ID] + " || '%' ";
+                IsAddConditonFlag = true;
             }
 
-            return BaseSelectSql;
+            if (!string.IsNullOrEmpty(InputParametor[USER_MNG_TBL_COLUMN_USER_NAME]))
+            {
+                if (IsAddConditonFlag)
+                {
+                    // 既に条件が追加されている場合
+                    CreateSelectSql += SQL_AND;
+                }
+                else
+                {
+                    // 新規で条件を追加する場合
+                    IsAddConditonFlag = true;
+                }
+                CreateSelectSql += "USER_NAME LIKE '%' || " + InputParametor[USER_MNG_TBL_COLUMN_USER_NAME] + " || '%'";
+            }
+
+            if (!string.IsNullOrEmpty(InputParametor[USER_MNG_TBL_COLUMN_USER_GENDER]))
+            {
+                if (IsAddConditonFlag)
+                {
+                    // 既に条件が追加されている場合
+                    CreateSelectSql += SQL_AND;
+                }
+                CreateSelectSql += "USER_GENDER = " + InputParametor[USER_MNG_TBL_COLUMN_USER_GENDER];
+            }
+            return CreateSelectSql;
+        }
+
+        /// <summary>
+        /// 全ての入力値がNULLかどうかチェック
+        /// </summary>
+        /// <param name="InputParametor"></param>
+        /// <returns></returns>
+        private bool IsNullAllInputValue(Dictionary<string, string> InputParametor)
+        {
+            foreach (string InputValue in InputParametor.Values)
+            {
+                if (!string.IsNullOrEmpty(InputValue))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
