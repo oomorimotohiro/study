@@ -72,7 +72,7 @@ namespace StudyProject.Controllers.Home
             UserUpdateService service = new UserUpdateService();
             service.UpdateUserWithPrimaryKey(EditForm);
 
-            return View("Edit", EditForm);
+            return View("UpdateComplete");
         }
 
         // POST: DELETE
@@ -90,7 +90,7 @@ namespace StudyProject.Controllers.Home
             UserDeleteService DeleteService = new UserDeleteService();
             DeleteService.DeleteUserWithPrimaryKeyUserId(DeleteUserId);
 
-            return View();
+            return View("DeleteComplete");
         }
 
         // GET: Register
@@ -112,7 +112,9 @@ namespace StudyProject.Controllers.Home
             // 登録実施
             UserRegisterService service = new UserRegisterService();
             service.RegisterUser(RegisterForm);
-            return View(RegisterForm);
+            return View("RegisterComplete");
         }
+
+        
     }
 }

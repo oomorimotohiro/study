@@ -121,7 +121,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Dto\UserDto.cs" />
-    <Compile Include="Models\Sample\Test.cs" />
     <Compile Include="Models\Service\Impl\UserDeleteService.cs" />
     <Compile Include="Models\Service\Impl\UserRegisterService.cs" />
     <Compile Include="Models\Service\Impl\UserSearchService.cs" />
@@ -149,7 +148,12 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\User\Edit.cshtml" />
-    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\DeleteComplete.cshtml" />
+    <Content Include="Views\User\RegisterComplete.cshtml" />
+    <Content Include="Views\User\UpdateComplete.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Shared\CustomError.cshtml" />
+    <Content Include="Views\Shared\Error500.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

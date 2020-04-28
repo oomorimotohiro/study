@@ -156,7 +156,7 @@ namespace StudyProject.Models.Service.Impl
 
             if (!string.IsNullOrEmpty(InputParametor[USER_MNG_TBL_COLUMN_USER_ID]))
             {
-                CreateSelectSql += "USER_ID LIKE '%' || " + InputParametor[USER_MNG_TBL_COLUMN_USER_ID] + " || '%' ";
+                CreateSelectSql += "USER_ID LIKE '%' || '" + InputParametor[USER_MNG_TBL_COLUMN_USER_ID] + "' || '%' ";
                 IsAddConditonFlag = true;
             }
 
@@ -172,7 +172,7 @@ namespace StudyProject.Models.Service.Impl
                     // 新規で条件を追加する場合
                     IsAddConditonFlag = true;
                 }
-                CreateSelectSql += "USER_NAME LIKE '%' || " + InputParametor[USER_MNG_TBL_COLUMN_USER_NAME] + " || '%'";
+                CreateSelectSql += "USER_NAME LIKE '%' || '" + InputParametor[USER_MNG_TBL_COLUMN_USER_NAME] + "' || '%'";
             }
 
             if (!string.IsNullOrEmpty(InputParametor[USER_MNG_TBL_COLUMN_USER_GENDER]))
@@ -182,7 +182,7 @@ namespace StudyProject.Models.Service.Impl
                     // 既に条件が追加されている場合
                     CreateSelectSql += SQL_AND;
                 }
-                CreateSelectSql += "USER_GENDER = " + InputParametor[USER_MNG_TBL_COLUMN_USER_GENDER];
+                CreateSelectSql += "USER_GENDER = '" + InputParametor[USER_MNG_TBL_COLUMN_USER_GENDER] + "'";
             }
             return CreateSelectSql;
         }
