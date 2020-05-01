@@ -29,59 +29,58 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.calc = new System.Windows.Forms.Button();
-            this.left = new System.Windows.Forms.TextBox();
-            this.right = new System.Windows.Forms.TextBox();
-            this.ope = new System.Windows.Forms.ComboBox();
+            this.Calc = new System.Windows.Forms.Button();
+            this.LeftText = new System.Windows.Forms.TextBox();
+            this.RightText = new System.Windows.Forms.TextBox();
+            this.Ope = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // calc
             // 
-            this.calc.Location = new System.Drawing.Point(92, 102);
-            this.calc.Name = "calc";
-            this.calc.Size = new System.Drawing.Size(65, 23);
-            this.calc.TabIndex = 0;
-            this.calc.Text = "計算";
-            this.calc.UseVisualStyleBackColor = true;
-            this.calc.Click += new System.EventHandler(this.calc_Click);
+            this.Calc.Location = new System.Drawing.Point(92, 102);
+            this.Calc.Name = "calc";
+            this.Calc.Size = new System.Drawing.Size(65, 23);
+            this.Calc.TabIndex = 0;
+            this.Calc.Text = "計算";
+            this.Calc.UseVisualStyleBackColor = true;
+            this.Calc.Click += new System.EventHandler(this.Calc_Click);
             // 
             // left
             // 
-            this.left.Location = new System.Drawing.Point(22, 44);
-            this.left.Name = "left";
-            this.left.Size = new System.Drawing.Size(65, 19);
-            this.left.TabIndex = 1;
+            this.LeftText.Location = new System.Drawing.Point(22, 44);
+            this.LeftText.Name = "left";
+            this.LeftText.Size = new System.Drawing.Size(65, 19);
+            this.LeftText.TabIndex = 1;
             // 
             // right
             // 
-            this.right.Location = new System.Drawing.Point(164, 44);
-            this.right.Name = "right";
-            this.right.Size = new System.Drawing.Size(65, 19);
-            this.right.TabIndex = 2;
+            this.RightText.Location = new System.Drawing.Point(164, 44);
+            this.RightText.Name = "right";
+            this.RightText.Size = new System.Drawing.Size(65, 19);
+            this.RightText.TabIndex = 2;
             // 
             // ope
             // 
-            this.ope.FormattingEnabled = true;
-            this.ope.Items.AddRange(new object[] {
-            "＋",
-            "－",
-            "×",
-            "÷"});
-            this.ope.Location = new System.Drawing.Point(108, 44);
-            this.ope.Name = "ope";
-            this.ope.Size = new System.Drawing.Size(35, 20);
-            this.ope.TabIndex = 3;
-            this.ope.SelectedIndexChanged += new System.EventHandler(this.ope_SelectedIndexChanged);
+            this.Ope.FormattingEnabled = true;
+            this.Ope.Items.AddRange(new object[] {
+            tasu,
+            hiku,
+            kake,
+            waru});
+            this.Ope.Location = new System.Drawing.Point(108, 44);
+            this.Ope.Name = "ope";
+            this.Ope.Size = new System.Drawing.Size(35, 20);
+            this.Ope.TabIndex = 3;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(253, 137);
-            this.Controls.Add(this.ope);
-            this.Controls.Add(this.right);
-            this.Controls.Add(this.left);
-            this.Controls.Add(this.calc);
+            this.Controls.Add(this.Ope);
+            this.Controls.Add(this.RightText);
+            this.Controls.Add(this.LeftText);
+            this.Controls.Add(this.Calc);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "C#研修001";
@@ -91,10 +90,10 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox left;
-        private System.Windows.Forms.TextBox right;
-        private System.Windows.Forms.ComboBox ope;
-        private System.Windows.Forms.Button calc;
+        private System.Windows.Forms.TextBox LeftText;
+        private System.Windows.Forms.TextBox RightText;
+        private System.Windows.Forms.ComboBox Ope;
+        private System.Windows.Forms.Button Calc;
     }
 }
 

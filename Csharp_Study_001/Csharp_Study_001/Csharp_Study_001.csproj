@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,8 @@
   <ItemGroup>
     <Compile Include="CalculationLogic.cs" />
     <Compile Include="CalculationLogicImpl.cs" />
+    <Compile Include="Factory\Operation.cs" />
+    <Compile Include="ICalc.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

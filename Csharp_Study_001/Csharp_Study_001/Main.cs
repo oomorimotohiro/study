@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Csharp_Study_001.work;
 
 namespace Csharp_Study_001
 {
@@ -20,10 +21,10 @@ namespace Csharp_Study_001
 
         private const string NUM_0 = "0";
 
-        private static string tasu = "＋";
-        private static string hiku = "－";
-        private static string kake = "×";
-        private static string waru = "÷";
+        public static string tasu = "＋";
+        public static string hiku = "－";
+        public static string kake = "×";
+        public static string waru = "÷";
             
         public Main()
         {
@@ -35,12 +36,12 @@ namespace Csharp_Study_001
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void calc_Click(object sender, EventArgs e)
+        private void Calc_Click(object sender, EventArgs e)
         {
             // 入力値の取得
-            string leftNum = left.Text;
-            string rigthNum = right.Text;
-            string opeSignal = ope.Text;
+            string leftNum = LeftText.Text;
+            string rigthNum = RightText.Text;
+            string opeSignal = Ope.Text;
             //　入力値チェック
             if (!CheckInputValue(leftNum, rigthNum, opeSignal)) 
             {
@@ -55,30 +56,10 @@ namespace Csharp_Study_001
                 return;
             }
 
-            CalculationLogicImpl calc = new CalculationLogicImpl();
-            string result = null;
-            // 計算実施
-            if (tasu.Equals(opeSignal))
-            {
-                // 足し算
-                result = calc.calcAddition(leftNum, rigthNum);
-            }
-            else if (hiku.Equals(opeSignal))
-            {
-                // 引き算
-                result = calc.calcSubtraction(leftNum, rigthNum);
-            }
-            else if (kake.Equals(opeSignal))
-            {
-                // 掛け算
-                result = calc.calcMultiplication(leftNum, rigthNum);
-            }
-            else if (waru.Equals(opeSignal))
-            {
-                // 割り算
-                result = calc.calcDivision(leftNum, rigthNum);
-            }
-
+            CalculationLogicImpl cl = new CalculationLogicImpl();
+            Operation operation = new Operation();
+            string result = cl.Calculate(ope);
+        
             // 計算結果を表示
             ShowInfoMsg(result);
         }
@@ -160,11 +141,6 @@ namespace Csharp_Study_001
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error,
                             MessageBoxDefaultButton.Button1);
-        }
-
-        private void ope_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

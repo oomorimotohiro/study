@@ -1,51 +1,47 @@
-﻿using System;
+﻿using Csharp_Study_001.Factory;
+using Csharp_Study_001.work;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Csharp_Study_001
 {
-    class CalculationLogicImpl : CalculationLogic
+    class CalculationLogicImpl : ICalculationLogic
     {
-        public string calcAddition(string leftNum, string rigthNum)
+        Hashtable Calculators = new Hashtable
         {
-            // 数値をDecimal型に変換
-            decimal decLeftNum = decimal.Parse(leftNum);
-            decimal decRigthNum = decimal.Parse(rigthNum);
-            // 足し算実施
-            decimal result = decimal.Add(decLeftNum, decRigthNum);
-            return result.ToString();
-        }
+            [Operation.PLUS]        = Type.GetType("AddClass"),
+            [Operation.MINUS]       = Type.GetType("AddClass"),
+            [Operation.DIVIDE]      = Type.GetType("AddClass"),
+            [Operation.MULTIPLY]    = Type.GetType("AddClass")
+        };
 
-        public string calcSubtraction(string leftNum, string rigthNum)
-        {
-            // 数値をDecimal型に変換
-            decimal decLeftNum = decimal.Parse(leftNum);
-            decimal decRigthNum = decimal.Parse(rigthNum);
-            // 引き算実施
-            decimal result = decimal.Subtract(decLeftNum, decRigthNum);
-            return result.ToString();
-        }
 
-        public string calcMultiplication(string leftNum, string rigthNum)
+        string ICalculationLogic.Calculate(Operation ope)
         {
-            // 数値をDecimal型に変換
-            decimal decLeftNum = decimal.Parse(leftNum);
-            decimal decRigthNum = decimal.Parse(rigthNum);
-            // 掛け算実施
-            decimal result = decimal.Multiply(decLeftNum, decRigthNum);
-            return result.ToString();
-        }
+            ICalc icalc = Calculators[ope.ArithmaticOperations];
 
-        public string calcDivision(string leftNum, string rigthNum)
+            throw new NotImplementedException();
+        }
+    }
+
+
+    class AddClass : ICalc
+    {
+        private decimal left;
+        private decimal right;
+        public AddClass(Operation ope)
         {
-            // 数値をDecimal型に変換
-            decimal decLeftNum = decimal.Parse(leftNum);
-            decimal decRigthNum = decimal.Parse(rigthNum);
-            // 割り算実施
-            decimal result = decimal.Divide(decLeftNum, decRigthNum);
-            return result.ToString();
+            this.left = ope.left;
+            this.right = ope.right;
+        }
+        public string Calculate()
+        {
+            return decimal.Add(left, right).ToString();
         }
     }
 }

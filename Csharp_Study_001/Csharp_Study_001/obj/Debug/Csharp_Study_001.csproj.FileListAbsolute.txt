@@ -26,3 +26,13 @@ C:\Users\ksudo\Desktop\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_
 C:\Users\ksudo\Desktop\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.csproj.CoreCompileInputs.cache
 C:\Users\ksudo\Desktop\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.exe
 C:\Users\ksudo\Desktop\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.pdb
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\bin\Debug\Csharp_Study_001.exe.config
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\bin\Debug\Csharp_Study_001.exe
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\bin\Debug\Csharp_Study_001.pdb
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.csprojAssemblyReference.cache
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.Main.resources
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.Properties.Resources.resources
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.csproj.GenerateResource.cache
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.csproj.CoreCompileInputs.cache
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.exe
+C:\Users\m.oomori\Source\Repos\study3\Csharp_Study_001\Csharp_Study_001\obj\Debug\Csharp_Study_001.pdb
