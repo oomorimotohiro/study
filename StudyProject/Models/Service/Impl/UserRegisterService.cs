@@ -23,6 +23,7 @@ namespace StudyProject.Models.Service.Impl
             if (UserInfoDto != null)
             {
                 // ユーザ情報が存在する場合
+                Console.WriteLine("ユーザー情報がありません.");
                 return;
             }
 
