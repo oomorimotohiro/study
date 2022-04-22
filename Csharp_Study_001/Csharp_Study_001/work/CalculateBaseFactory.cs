@@ -9,7 +9,12 @@ using System.Windows.Forms;
 
 namespace work.Csharp_Study_001
 {
-
+    /// <summary>
+    /// Fat Factory
+    /// </summary>
+    /// <remarks>
+    /// Fat Factory
+    /// </remarks>
     abstract class CalculateBaseFactory
     {
         public const double ZERO = 0;
